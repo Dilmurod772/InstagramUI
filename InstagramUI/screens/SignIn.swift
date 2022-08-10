@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignIn: View {
     
-    @EnvironmentObject var status: Status
+   
     @State var isModel = false
     @State var userid = ""
     @State var userpw = ""
@@ -28,9 +28,9 @@ struct SignIn: View {
             SecureField("User PW", text: $userpw).frame(height: 45).padding(.leading, 10).background(Color.gray.opacity(0.2)).cornerRadius(20)
             
             Button(action: {
-                
-                UserDefaults.standard.set("pdp", forKey: "userid")
-                status.listen()
+                UserDefaults.standard.set(true, forKey: "status")
+                NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+               
             }, label: {
                 HStack{
                     Spacer()

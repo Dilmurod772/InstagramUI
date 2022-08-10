@@ -9,16 +9,16 @@ import SwiftUI
 
 struct HomeScreen: View {
     
-    @EnvironmentObject var status: Status
+    
     
     var body: some View {
         
         NavigationView{
             VStack{
         Button(action: {
+            UserDefaults.standard.set(false, forKey: "status")
+            NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
            
-            UserDefaults.standard.removeObject(forKey: "userid")
-            status.listen()
             
         }, label: {
             Text("Log Out")

@@ -9,20 +9,23 @@ import SwiftUI
 
 struct StarterScreen: View {
     
-    @EnvironmentObject var status: Status
-    
+    @State var status = UserDefaults.standard.value(forKey: "userid") as? Bool ?? false
     
     var body: some View {
         
         VStack{
-            if self.status.userid != nil {
+            if self.status{
                 HomeScreen()
             }else{
                 SignIn()
             }
         }
         .onAppear{
-            status.listen()
+            let forname = NSNotification.Name("status")
+            NotificationCenter.default.addObserver(forName: forname, object: nil, queue: .main) { (_) in 
+                print("Call Notification Center")
+                self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+            }
             }
         }
         
